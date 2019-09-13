@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  start_date: 2019-09-12 22:14:17
+  end_date: 2019-09-12 22:14:17
+  budget: 1
+  location: MyString
+  spending_money: 1
+  details: MyText
+
+two:
+  name: MyString
+  start_date: 2019-09-12 22:14:17
+  end_date: 2019-09-12 22:14:17
+  budget: 1
+  location: MyString
+  spending_money: 1
+  details: MyText
