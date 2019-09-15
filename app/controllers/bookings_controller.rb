@@ -1,51 +1,40 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: [:show, :update, :destroy]
+  before_action :set_trip
 
-  # GET /bookings
   def index
-    @bookings = Booking.all
-
+    @bookings = @trip.bookings
     render json: @bookings
   end
 
-  # GET /bookings/1
   def show
+    @booking = Booking.find(params[:id])
     render json: @booking
   end
 
-  # POST /bookings
   def create
-    @booking = Booking.new(booking_params)
-
-    if @booking.save
-      render json: @booking, status: :created, location: @booking
-    else
-      render json: @booking.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /bookings/1
-  def update
-    if @booking.update(booking_params)
+    @booking = @trip.bookings.new(booking_params)
+    if @trip.update_spending_money(@booking) != "Booking exceeds budget, rework those numbers!"
+      @booking.save
       render json: @booking
     else
-      render json: @booking.errors, status: :unprocessable_entity
+      render json: {error: 'Booking cost exceeds budget'}
     end
   end
 
-  # DELETE /bookings/1
+
   def destroy
+    @booking = Booking.find(params[:id])
     @booking.destroy
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_booking
-      @booking = Booking.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def booking_params
-      params.require(:booking).permit(:trip_id, :booking_type, :cost, :start_date, :end_date, :notes)
-    end
+  def set_trip
+    @trip = Trip.find(params[:trip_id])
+  end
+
+  def booking_params
+    params.require(:booking).permit(:trip_id, :booking_type, :cost, :start_date, :end_date, :notes)
+  end
+
 end
