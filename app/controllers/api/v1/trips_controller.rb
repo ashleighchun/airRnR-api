@@ -1,36 +1,46 @@
 class Api::V1::TripsController < ApplicationController
+  # GET /trips
   def index
     @trips = Trip.all
+
     render json: @trips
   end
 
+  # GET /trips/1
+  def show
+    render json: @trip
+  end
+
+  # POST /trips
   def create
     @trip = Trip.new(trip_params)
+
     if @trip.save
-      render json: @trip
+      render json: @trip, status: :created, location: @trip
     else
-      render json: {error: 'Error creating trip'}
+      render json: @trip.errors, status: :unprocessable_entity
     end
   end
 
-  def show
-    @trip = Trip.find(params[:id])
-    render json: @trip
+  # PATCH/PUT /trips/1
+  def update
+    if @trip.update(trip_params)
+      render json: @trip
+    else
+      render json: @trip.errors, status: :unprocessable_entity
+    end
   end
 
+  # DELETE /trips/1
   def destroy
-    @trip = Trip.find(params[:id])
     @trip.destroy
   end
 
-  def update
-    @trip = Trip.find(params[:id])
-    @trip.update(name: params["trip"]["name"])
-    @trip.save
-    render json: @trip
-  end
-
   private
+
+  def set_trip
+      @trip = Trip.find(params[:id])
+    end
 
   def trip_params
     params.require(:trip).permit(:name, :start_date, :end_date, :budget, :location, :spending_money, :details)
