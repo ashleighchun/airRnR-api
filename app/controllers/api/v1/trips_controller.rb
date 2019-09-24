@@ -25,7 +25,7 @@ class Api::V1::TripsController < ApplicationController
 
   def update
     @trip = Trip.find(params[:id])
-    @trip.update(name:params["trip"]["name"])
+    @trip.update(name: params["trip"]["name"])
     @trip.save
     render json: @trip
   end

@@ -2,7 +2,7 @@ class Api::V1::BookingsController < ApplicationController
   before_action :set_trip
 
   def index
-    @bookings = @trip.bookings
+    @bookings = @trip.all
     render json: @bookings
   end
 
@@ -23,8 +23,14 @@ class Api::V1::BookingsController < ApplicationController
 
 
   def destroy
-    @booking = Booking.find(params[:id])
-    @booking.destroy
+    @booking = Booking.find(params["id"])
+    @trip = Trip.find(@booking.trip_id)
+    if @trip.update_budget(@booking)
+      @booking.destroy
+      render json: @trip
+    else
+      render json: {error: 'Booking cost exceeds budget'}
+    end 
   end
 
   private
