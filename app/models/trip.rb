@@ -11,5 +11,15 @@ class Trip < ApplicationRecord
     end
   end
 
+  def update_budget(booking)
+
+      if self.budget >= booking.cost
+        self.budget = self.budget - booking.cost
+        self.save
+      else
+        return 'You cannot afford this booking.'
+      end
+
+    end
 
 end

@@ -15,7 +15,7 @@ class Api::V1::BookingsController < ApplicationController
     @booking = @trip.bookings.new(booking_params)
     if @trip.update_spending_money(@booking) != "Booking exceeds budget, rework those numbers!"
       @booking.save
-      render json: @booking
+      render json: @trip
     else
       render json: {error: 'Booking cost exceeds budget'}
     end
