@@ -1,4 +1,4 @@
-class Api::V1::TripsController < ApplicationController
+class TripsController < ApplicationController
   # GET /trips
   def index
     @trips = Trip.all
@@ -43,7 +43,7 @@ class Api::V1::TripsController < ApplicationController
     end
 
   def trip_params
-    params.require(:trip).permit(:name, :start_date, :end_date, :budget, :location, :spending_money, :details)
+    params.require(:trip).permit(:name, :trip_type, :start_date, :end_date, :total_cost, :location, :details)
   end
 
 end

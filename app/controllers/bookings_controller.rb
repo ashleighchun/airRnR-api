@@ -1,4 +1,4 @@
-class Api::V1::BookingsController < ApplicationController
+class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :update, :destroy]
 
 
@@ -47,7 +47,7 @@ class Api::V1::BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:trip_id, :booking_type, :cost, :start_date, :end_date, :notes)
+    params.require(:booking).permit(:trip_id, :booking_type, :cost, :notes)
   end
 
 end
