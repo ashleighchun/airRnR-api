@@ -1,7 +1,6 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :update, :destroy]
 
-
   # GET /bookings
   def index
     @bookings = Booking.all
@@ -40,14 +39,15 @@ class BookingsController < ApplicationController
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_booking
+      @booking = Booking.find(params[:id])
+    end
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_booking
-    @booking = Booking.find(params[:id])
-  end
 
-  def booking_params
-    params.require(:booking).permit(:trip_id, :booking_type, :cost, :notes)
+
+  def bookinging_params
+    params.require(:bookinging).permit(:trip_id, :bookinging_type, :start_date, :end_date, :bookinging_cost, :details)
   end
 
 end
