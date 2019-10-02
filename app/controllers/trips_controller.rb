@@ -15,6 +15,7 @@ class TripsController < ApplicationController
 
   # POST /trips
   def create
+    # binding.pry
     @trip = Trip.new(trip_params)
 
     if @trip.save
@@ -46,7 +47,6 @@ class TripsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def trip_params
-    params.require(:trip).permit(:name, :trip_type, :location, :trip_cost)
-  end
-
+      params.require(:trip).permit(:trip_type)
+    end
 end

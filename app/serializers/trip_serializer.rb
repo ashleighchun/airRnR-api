@@ -1,5 +1,5 @@
 class TripSerializer < ActiveModel::Serializer
-  attributes :id, :name, :trip_type, :location, :trip_cost
+  attributes :trip_type
 
   has_many :bookings
 end

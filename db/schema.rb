@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 2019_09_15_043237) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer "trip_id"
+    t.string "location"
     t.string "booking_type"
     t.datetime "start_date"
     t.datetime "end_date"
@@ -22,10 +23,7 @@ ActiveRecord::Schema.define(version: 2019_09_15_043237) do
   end
 
   create_table "trips", force: :cascade do |t|
-    t.string "name"
     t.string "trip_type"
-    t.string "location"
-    t.integer "trip_cost"
   end
 
 end

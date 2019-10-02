@@ -35,7 +35,9 @@ class BookingsController < ApplicationController
 
   # DELETE /bookings/1
   def destroy
+    @trip = Trip.find(@booking.trip_id)
     @booking.destroy
+    render json: @trip.bookings
   end
 
   private
@@ -44,10 +46,9 @@ class BookingsController < ApplicationController
       @booking = Booking.find(params[:id])
     end
 
-
-
-  def bookinging_params
-    params.require(:bookinging).permit(:trip_id, :bookinging_type, :start_date, :end_date, :bookinging_cost, :details)
+    # Only allow a trusted parameter "white list" through.
+  def booking_params
+    params.require(:booking).permit(:trip_id, :location, :booking_type, :start_date, :end_date, :booking_cost, :details)
   end
 
 end
