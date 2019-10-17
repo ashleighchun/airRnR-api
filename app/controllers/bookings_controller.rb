@@ -35,9 +35,9 @@ class BookingsController < ApplicationController
 
   # DELETE /bookings/1
   def destroy
-    @trip = Trip.find(@booking.trip_id)
+    @booking = Booking.find(@booking.id)
     @booking.destroy
-    render json: @trip.bookings
+    render json: @bookings
   end
 
   private
